@@ -36,12 +36,28 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public Page addRow(String title, String pageTitle) {
+    public Page addRow(String title, String pageId) {
 
-        Page page = pageRepository.findByTitle(pageTitle);
+        Page page = pageRepository.findById(pageId);
         ContentRow row = new ContentRow(title);
 
         page.addContentRow(row);
         return pageRepository.save(page);
+    }
+
+    //Implement 3 methods
+    @Override
+    public Page deleteRow(int rowIndex, String pageId) {
+        return null;
+    }
+
+    @Override
+    public Page createComponent(int rowIndex, String pageId) {
+        return null;
+    }
+
+    @Override
+    public Page deleteComponent(int rowIndex, String pageId) {
+        return null;
     }
 }

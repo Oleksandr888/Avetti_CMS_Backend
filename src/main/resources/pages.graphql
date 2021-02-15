@@ -7,7 +7,10 @@ type Query {
 
 type Mutation {
     createPage(title: String!): Page!
-    createRow(title: String!, pageTitle: String!): Page!
+    createRow(title: String!, pageId: String!): Page!
+    deleteRow(rowIndex: String!, pageId: String!): Page!
+    createComponent(rowIndex: String!, pageId: String!): Page!
+    deleteComponent(rowIndex: String!, pageId: String!): Page!
 }
 
 type Page {

@@ -12,6 +12,12 @@ public interface PageService {
 
     public Page createPage(String title);
 
-    public Page addRow(String title, String pageTitle);
+    public Page addRow(String title, String pageId);
+
+    public Page deleteRow(int rowIndex, String pageId);
+
+    public Page createComponent(int rowIndex, String pageId);
+
+    public Page deleteComponent(int rowIndex, String pageId);
 
 }
