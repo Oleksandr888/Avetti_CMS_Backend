@@ -1,0 +1,26 @@
+
+
+type Query {
+    allPages: [Page]
+    page(title: String!): Page
+}
+
+type Mutation {
+    createPage(title: String!): Page!
+    createRow(title: String!, pageTitle: String!): Page!
+}
+
+type Page {
+    id: String
+    title: String
+    contentRows: [ContentRow]
+}
+
+type ContentRow {
+    title: String
+    contentComponents: [ContentComponent]
+}
+
+type ContentComponent {
+    text: String
+}
