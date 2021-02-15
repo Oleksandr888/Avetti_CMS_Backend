@@ -6,8 +6,6 @@ import org.springframework.data.annotation.Id;
 @Data
 public class ContentComponent {
 
-
-
     private String text;
     //private Byte[] image;
 

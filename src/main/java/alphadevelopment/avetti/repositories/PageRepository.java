@@ -12,4 +12,7 @@ public interface PageRepository extends MongoRepository<Page, Long> {
 
     @Query (value = "{ 'title' : ?0 }")
     Page findByTitle(String title);
+
+    @Query (value = "{ 'id' : ?0 }")
+    Page findById(String Id);
 }

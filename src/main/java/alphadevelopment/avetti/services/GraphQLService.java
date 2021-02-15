@@ -28,17 +28,10 @@ public class GraphQLService {
 
     private GraphQL graphQL;
 
-    private final AllPagesDataFetcher allPagesDataFetcher;
-    private final PageDataFetcher pageDataFetcher;
-    private final CreatePageDataFetcher createPageDataFetcher;
-    private final CreateRowDataFetcher createRowDataFetcher;
+    private final DataFetcherFactory dataFetcherFactory;
 
-    public GraphQLService(AllPagesDataFetcher allPagesDataFetcher, PageDataFetcher pageDataFetcher,
-                          CreatePageDataFetcher createPageDataFetcher, CreateRowDataFetcher createRowDataFetcher) {
-        this.allPagesDataFetcher = allPagesDataFetcher;
-        this.pageDataFetcher = pageDataFetcher;
-        this.createPageDataFetcher = createPageDataFetcher;
-        this.createRowDataFetcher = createRowDataFetcher;
+    public GraphQLService(DataFetcherFactory dataFetcherFactory) {
+        this.dataFetcherFactory = dataFetcherFactory;
     }
 
     @PostConstruct
@@ -53,14 +46,16 @@ public class GraphQLService {
         graphQL = GraphQL.newGraphQL(schema).build();
     }
 
+    //Add 3 mutations: deleteRow, createComponent, deleteComponent
     private RuntimeWiring buildRuntimeWiring(){
         return RuntimeWiring.newRuntimeWiring()
                 .type("Query", typeWiring -> typeWiring
-                    .dataFetcher("allPages", allPagesDataFetcher)
-                    .dataFetcher("page", pageDataFetcher))
+                    .dataFetcher("allPages", dataFetcherFactory.getAllPagesDataFether())
+                    .dataFetcher("page", dataFetcherFactory.getPageDataFether()))
                 .type("Mutation", typeWiring -> typeWiring
-                    .dataFetcher("createPage", createPageDataFetcher)
-                    .dataFetcher("createRow", createRowDataFetcher))
+                    .dataFetcher("createPage", dataFetcherFactory.createPageDataFether())
+                    .dataFetcher("createRow", dataFetcherFactory.createRowDataFether())
+                )
                 .build();
     }
 
