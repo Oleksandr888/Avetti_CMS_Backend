@@ -57,7 +57,7 @@ public class DataFetcherFactory {
         return dataFetcher;
     }
 
-    public DataFetcher<Page> createRowDataFether(){
+    public DataFetcher<Page> createRowDataFether() {
 
         DataFetcher<Page> dataFetcher = new DataFetcher() {
             @Override
@@ -74,6 +74,51 @@ public class DataFetcherFactory {
     }
 
     //Add 3 methods for creating datafetchers
+
+        public DataFetcher<Page> deleteRowDataFether(){
+
+                DataFetcher<Page> dataFetcher = new DataFetcher() {
+                    @Override
+                    public Page get(DataFetchingEnvironment dataFetchingEnvironment) {
+
+                        int rowIndex = dataFetchingEnvironment.getArgument("rowIndex");
+                        String pageId = dataFetchingEnvironment.getArgument("pageId");
+
+                        return pageService.deleteRow(rowIndex, pageId);
+                    }
+                };
+
+                return dataFetcher;
+        }
+        public DataFetcher<Page> createComponent() {
+
+            DataFetcher<Page> dataFetcher = new DataFetcher() {
+                @Override
+                public Page get(DataFetchingEnvironment dataFetchingEnvironment) {
+
+                    int rowIndex = dataFetchingEnvironment.getArgument("rowIndex");
+                    String pageId = dataFetchingEnvironment.getArgument("pageId");
+
+                    return pageService.createComponent(rowIndex, pageId);
+                }
+            };
+            return dataFetcher;
+        }
+
+    public DataFetcher<Page> deleteComponent() {
+
+        DataFetcher<Page> dataFetcher = new DataFetcher() {
+            @Override
+            public Page get(DataFetchingEnvironment dataFetchingEnvironment) {
+
+                int rowIndex = dataFetchingEnvironment.getArgument("rowIndex");
+                String pageId = dataFetchingEnvironment.getArgument("pageId");
+
+                return pageService.deleteComponent(rowIndex, pageId);
+            }
+        };
+        return dataFetcher;
+    }
 
 
 

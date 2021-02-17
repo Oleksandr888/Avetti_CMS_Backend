@@ -55,6 +55,9 @@ public class GraphQLService {
                 .type("Mutation", typeWiring -> typeWiring
                     .dataFetcher("createPage", dataFetcherFactory.createPageDataFether())
                     .dataFetcher("createRow", dataFetcherFactory.createRowDataFether())
+                    .dataFetcher("deleteRow", dataFetcherFactory.deleteRowDataFether())
+                    .dataFetcher("createComponent", dataFetcherFactory.createComponent())
+                    .dataFetcher("deleteComponent", dataFetcherFactory.deleteComponent())
                 )
                 .build();
     }
