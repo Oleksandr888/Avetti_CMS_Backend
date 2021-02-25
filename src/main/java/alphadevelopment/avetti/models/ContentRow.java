@@ -20,4 +20,8 @@ public class ContentRow {
     public void addContentComponent(ContentComponent contentComponent){
         contentComponents.add(contentComponent);
     }
+
+    public void deleteContentComponent(int componentIndex){
+        contentComponents.remove(componentIndex);
+    }
 }

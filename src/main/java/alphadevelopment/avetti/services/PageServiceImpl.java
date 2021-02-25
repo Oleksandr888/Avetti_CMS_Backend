@@ -1,5 +1,6 @@
 package alphadevelopment.avetti.services;
 
+import alphadevelopment.avetti.models.ContentComponent;
 import alphadevelopment.avetti.models.ContentRow;
 import alphadevelopment.avetti.models.Page;
 import alphadevelopment.avetti.repositories.PageRepository;
@@ -48,12 +49,22 @@ public class PageServiceImpl implements PageService {
     //Implement 3 methods
     @Override
     public Page deleteRow(int rowIndex, String pageId) {
-        return null;
+        Page page = pageRepository.findById(pageId);
+
+        page.deleteContentRow(rowIndex);
+
+        return pageRepository.save(page);
     }
 
     @Override
-    public Page createComponent(int rowIndex, String pageId) {
-        return null;
+    public Page createComponent(String content, int rowIndex, String pageId) {
+        Page page = pageRepository.findById(pageId);
+        ContentRow row = page.getContentRow(rowIndex);
+        ContentComponent component = new ContentComponent(content);
+
+        row.addContentComponent(component);
+
+        return pageRepository.save(page);
     }
 
     @Override

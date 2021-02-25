@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class PageQuery implements GraphQLQueryResolver {
+public class QueryResolver implements GraphQLQueryResolver {
 
     private final PageService pageService;
 
-    public PageQuery(PageService pageService) {
+    public QueryResolver(PageService pageService) {
         this.pageService = pageService;
     }
 
