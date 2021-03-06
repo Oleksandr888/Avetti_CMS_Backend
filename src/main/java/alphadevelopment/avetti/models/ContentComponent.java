@@ -6,10 +6,11 @@ import org.springframework.data.annotation.Id;
 @Data
 public class ContentComponent {
 
-    private String text;
-    //private Byte[] image;
+    private String type;
+    private String content;
 
-    public ContentComponent(String text) {
-        this.text = text;
+    public ContentComponent(String type, String content) {
+        this.type = type;
+        this.content = content;
     }
 }

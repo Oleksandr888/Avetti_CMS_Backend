@@ -1,4 +1,4 @@
-
+scalar Upload
 
 type Query {
     allPages: [Page]
@@ -9,7 +9,8 @@ type Mutation {
     createPage(title: String!): Page!
     createRow(title: String!, pageId: String!): Page!
     deleteRow(rowIndex: Int!, pageId: String!): Page!
-    createComponent(content: String!, rowIndex: String!, pageId: String!): Page!
+    createTextComponent(text: String!, rowIndex: Int!, pageId: String!): Page!
+    createImageComponent(image: Upload, rowIndex: Int!, pageId: String!): Page!
     deleteComponent(rowIndex: Int!, pageId: String!): Page!
 }
 
@@ -25,5 +26,6 @@ type ContentRow {
 }
 
 type ContentComponent {
-    text: String
+    type: String
+    content: String
 }

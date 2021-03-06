@@ -16,7 +16,7 @@ public interface PageService {
 
     public Page deleteRow(int rowIndex, String pageId);
 
-    public Page createComponent(String component, int rowIndex, String pageId);
+    public Page createComponent(String type, String content, int rowIndex, String pageId);
 
     public Page deleteComponent(int rowIndex, String pageId);
 
