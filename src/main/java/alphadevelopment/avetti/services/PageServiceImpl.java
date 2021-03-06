@@ -57,10 +57,10 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public Page createComponent(String content, int rowIndex, String pageId) {
+    public Page createComponent(String type, String content, int rowIndex, String pageId) {
         Page page = pageRepository.findById(pageId);
         ContentRow row = page.getContentRow(rowIndex);
-        ContentComponent component = new ContentComponent(content);
+        ContentComponent component = new ContentComponent(type, content);
 
         row.addContentComponent(component);
 
