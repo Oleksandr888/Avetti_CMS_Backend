@@ -8,6 +8,7 @@ import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
 import io.imagekit.sdk.ImageKit;
 import io.imagekit.sdk.models.FileCreateRequest;
+import io.imagekit.sdk.models.FileUpdateRequest;
 import io.imagekit.sdk.models.results.Result;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
@@ -20,7 +21,7 @@ import javax.servlet.http.Part;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -48,7 +49,7 @@ public class MutationResolver implements GraphQLMutationResolver {
     }
 
     public Page createTextComponent(String text, int rowIndex, String pageId){
-        return pageService.createComponent("text", text, rowIndex, pageId);
+        return pageService.createTextComponent(text, rowIndex, pageId);
     }
 
     public Page createImageComponent(Part image, int rowIndex, String pageId,
@@ -68,14 +69,25 @@ public class MutationResolver implements GraphQLMutationResolver {
         //Uploading image
         Result result = ImageKit.getInstance().upload(fileCreateRequest);
 
-        //Get file reference from imagekit.io
-        String reference = result.getMap().get("name").toString();
+        System.out.println(result.getMap());
 
-        //Save image name to database
-        return pageService.createComponent("image", reference, rowIndex, pageId);
+        //Getting url to image with default size of 200px
+        String filePath = result.getMap().get("filePath").toString();
+        List<Map<String,String>> transformation = new ArrayList<Map<String,String>>();
+        Map<String, String> scale=new HashMap<>();
+        scale.put("width","200");
+        transformation.add(scale);
 
+        Map<String, Object> options = new HashMap();
+        options.put("path", filePath);
+        options.put("transformation", transformation);
+        String url = ImageKit.getInstance().getUrl(options);
 
+        //Getting FileId
+        String fileId = result.getMap().get("fileId").toString();
 
+        //Save image url to database
+        return pageService.createImageComponent(fileId, url, rowIndex, pageId);
     }
 
     private File getLocation(String filename) throws IOException {
@@ -98,8 +110,12 @@ public class MutationResolver implements GraphQLMutationResolver {
         return "image".equalsIgnoreCase(mediaType.getType());
     }
 
-    public Page deleteComponent(int rowIndex, String pageId){
-        return pageService.deleteComponent(rowIndex, pageId);
+    public String resizeImageComponent(int newWidth, int componentIndex, int rowIndex, String pageId){
+        return pageService.resizeImageComponent(newWidth, componentIndex, rowIndex, pageId);
+    }
+
+    public ContentRow deleteComponent(int componentIndex, int rowIndex, String pageId){
+        return pageService.deleteComponent(componentIndex, rowIndex, pageId);
     }
 
 }

@@ -11,7 +11,8 @@ type Mutation {
     deleteRow(rowIndex: Int!, pageId: String!): Page!
     createTextComponent(text: String!, rowIndex: Int!, pageId: String!): Page!
     createImageComponent(image: Upload, rowIndex: Int!, pageId: String!): Page!
-    deleteComponent(rowIndex: Int!, pageId: String!): Page!
+    resizeImageComponent(newWidth: Int!, componentIndex: Int!, rowIndex: Int!, pageId: String!): String
+    deleteComponent(componentIndex: Int!, rowIndex: Int!, pageId: String!): ContentRow!
 }
 
 type Page {
