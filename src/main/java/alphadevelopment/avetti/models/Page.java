@@ -11,7 +11,7 @@ import java.util.List;
 
 @Document
 @Data
-public class Page {
+public class Page{
 
     @Id
     private String id;
