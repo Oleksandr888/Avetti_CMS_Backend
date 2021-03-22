@@ -8,6 +8,7 @@ public class ContentComponent {
 
     private String type;
     private String content;
+    private String fileId;
 
     public ContentComponent(String type, String content) {
         this.type = type;
