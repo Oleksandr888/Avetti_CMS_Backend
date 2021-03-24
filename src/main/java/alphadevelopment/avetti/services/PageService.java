@@ -20,6 +20,8 @@ public interface PageService {
 
     public Page createTextComponent(String content, int rowIndex, String pageId);
 
+    public Page editTextComponent(String content, int componentIndex, int rowIndex, String pageId);
+
     public Page createImageComponent(String fileId, String url, int rowIndex, String pageId);
 
     public String resizeImageComponent(int newWidth, int componentIndex, int rowIndex, String pageId);

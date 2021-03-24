@@ -52,6 +52,10 @@ public class MutationResolver implements GraphQLMutationResolver {
         return pageService.createTextComponent(text, rowIndex, pageId);
     }
 
+    public Page editTextComponent(String text, int componentIndex, int rowIndex, String pageId){
+        return pageService.editTextComponent(text, componentIndex, rowIndex, pageId);
+    }
+
     public Page createImageComponent(Part image, int rowIndex, String pageId,
                                            DataFetchingEnvironment environment) throws IOException, InvalidContentTypeException {
         //Getting image from request
