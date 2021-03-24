@@ -69,6 +69,17 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
+    public Page editTextComponent(String content, int componentIndex, int rowIndex, String pageId) {
+        Page page = pageRepository.findById(pageId);
+        ContentRow row = page.getContentRow(rowIndex);
+        ContentComponent component = row.getContentComponent(componentIndex);
+
+        component.setContent(content);
+
+        return pageRepository.save(page);
+    }
+
+    @Override
     public Page createImageComponent(String fileId, String url, int rowIndex, String pageId) {
         Page page = pageRepository.findById(pageId);
         ContentRow row = page.getContentRow(rowIndex);
